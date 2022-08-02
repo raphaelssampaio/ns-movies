@@ -1,21 +1,21 @@
 import { Http } from '@nativescript/core'
 
-type Movies = {
-  movies: Array<{
-    year: number
-    rating: string
-    ranking: number
-    idIMDB: string
-    title: string
-    urlPoster: string
-  }>
+export interface MovieData {
+  year: number
+  rating: string
+  ranking: number
+  idIMDB: string
+  title: string
+  urlPoster: string
 }
 
 interface MoviesResponse {
-  data: Movies
+  data: {
+    movies: MovieData[]
+  }
 }
 
-export async function getMovies () {
+export async function getMovies() {
   const API_KEY = ''
 
   const BASE_URL = `https://www.myapifilms.com/imdb/top?token=${API_KEY}&format=json&data=0`
@@ -23,6 +23,6 @@ export async function getMovies () {
     const response: MoviesResponse = await Http.getJSON(BASE_URL)
     return response.data.movies
   } catch {
-    return 'Error'
+    return []
   }
 }

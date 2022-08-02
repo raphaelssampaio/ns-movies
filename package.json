@@ -11,6 +11,7 @@
     "react-nativescript-navigation": "3.0.0-beta.2"
   },
   "devDependencies": {
+    "@nativescript/android": "8.3.0",
     "@nativescript/ios": "8.3.2",
     "@nativescript/types": "~8.2.0",
     "@nativescript/webpack": "~5.0.6",

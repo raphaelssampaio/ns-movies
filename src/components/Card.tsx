@@ -1,14 +1,14 @@
-import * as React from 'react'
+import React, { memo } from 'react'
 import { StyleSheet } from 'react-nativescript'
 
 interface CardProps {
   title: string
   urlPoster: string
-  year: string
+  year: number
   ranking: number
 }
 
-export function Card ({ title, urlPoster, year, ranking }: CardProps) {
+function Card({ title, urlPoster, year, ranking }: CardProps) {
   return (
     <flexboxLayout style={styles.greatContainer}>
       <label style={styles.textRanking}>
@@ -65,3 +65,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   }
 })
+
+export default memo(Card)

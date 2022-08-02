@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-nativescript'
-import { getMovies } from '../services'
-import { Card } from './Card'
+import { getMovies, MovieData } from '../services'
+import Card from './Card'
 
-export function HomeScreen () {
-  const [movies, setMovies] = useState<any>([])
+export function HomeScreen() {
+  const [movies, setMovies] = useState<MovieData[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   const handleGetMovies = async () => {
     const data = await getMovies()
     setMovies(data)
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    handleGetMovies().then(() => setIsLoading(false))
+    handleGetMovies()
   }, [])
 
   return (
     <scrollView style={styles.container} orientation='vertical'>
       <flexboxLayout style={styles.content}>
         {isLoading && <label style={styles.text}>Loading...</label>}
-        {movies.map((movie: any) => (
+        {(movies.length === 0 && !isLoading) && <label style={styles.text}>No data found...</label>}
+        {movies.map((movie: MovieData) => (
           <Card
             key={movie.idIMDB}
             title={movie.title}
@@ -30,7 +32,7 @@ export function HomeScreen () {
           />
         ))}
       </flexboxLayout>
-    </scrollView>
+    </scrollView >
   )
 }
 
